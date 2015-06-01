@@ -37,7 +37,7 @@ public class GraficarGrafo extends JPanel{
             Ubica[i]=xy;
             gr.fillOval(x,y, 20, 20);
             gr.drawString(String.valueOf(Mapa.getLista()[i].getPunto()), x+30, y+30);
-            gr.drawString(String.valueOf(Mapa.getLista()[i].getDireccion()), x, y+50);
+            gr.drawString(String.valueOf(Mapa.getLista()[i].getCiudad()), x, y+50);
         }
         Integer [][] CMatriz=Mapa.getAyacencia();
         for(int j=0;j<Mapa.getTamañoMax();j++){

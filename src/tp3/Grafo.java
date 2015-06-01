@@ -38,12 +38,12 @@ public class Grafo {
         return Matriz;
     }
     
-    public void AgregarNodo(int Punto, String Dirrecion){
+    public void AgregarNodo(int Punto, String Ciudad,String Dirrecion){
         if(tamañoact==TamañoMax){
             System.out.println("Lista llena");
             return;}
         
-        Nodo Nodo = new Nodo(Punto, Dirrecion);
+        Nodo Nodo = new Nodo(Punto, Ciudad, Dirrecion);
         Lista[tamañoact]= Nodo;
         tamañoact++;  
     }
@@ -197,11 +197,15 @@ public class Grafo {
     
     class Nodo{
         private int Punto;
-        private String Direccion;
+        private String Direccion, Ciudad;
         
-        public Nodo(int Punto, String Dirrecion){
+        public Nodo(int Punto, String Ciudad, String Dirrecion){
             this.Punto=Punto;
             this.Direccion=Dirrecion;
+            this.Ciudad=Ciudad;
+        }
+        public  String getCiudad(){
+            return Ciudad;
         }
         
         public  int getPunto(){

@@ -180,16 +180,16 @@ public class Configuracion extends javax.swing.JFrame {
 
     public void CargarMapaGrafo(){
         Mapa.setTamañoMaximo(10);
-        Mapa.AgregarNodo(1, "Sanjose");
-        Mapa.AgregarNodo(301, "Heredia");
-        Mapa.AgregarNodo(302, "Limon");
-        Mapa.AgregarNodo(303, "Cartago");
-        Mapa.AgregarNodo(304, "Siquirres");
-        Mapa.AgregarNodo(101, "Orotina");
-        Mapa.AgregarNodo(102, "Parrita");
-        Mapa.AgregarNodo(103, "Gguna");
-        Mapa.AgregarNodo(307, "puebla");
-        Mapa.AgregarNodo(308, "hola");
+        Mapa.AgregarNodo(1, "Sanjose", "direcion");
+        Mapa.AgregarNodo(301, "Heredia", "direcion");
+        Mapa.AgregarNodo(302, "Limon", "direcion");
+        Mapa.AgregarNodo(303, "Cartago", "direcion");
+        Mapa.AgregarNodo(304, "Siquirres", "direcion");
+        Mapa.AgregarNodo(101, "Orotina", "direcion");
+        Mapa.AgregarNodo(102, "Parrita", "direcion");
+        Mapa.AgregarNodo(103, "Gguna", "direcion");
+        Mapa.AgregarNodo(307, "puebla", "direcion");
+        Mapa.AgregarNodo(308, "hola", "direcion");
         Mapa.RelacionarNodo(301, 302, 10);
         Mapa.RelacionarNodo(301, 303, 10);
         Mapa.RelacionarNodo(301, 304, 10);
