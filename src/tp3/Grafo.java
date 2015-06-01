@@ -24,6 +24,20 @@ public class Grafo {
         
     }
     
+    /**
+     *
+     * @return
+     */
+    public int getTamañoMax(){
+        return TamañoMax;
+    }
+    public Nodo [] getLista(){
+        return Lista;
+    }
+    public Integer [][] getAyacencia(){
+        return Matriz;
+    }
+    
     public void AgregarNodo(int Punto, String Dirrecion){
         if(tamañoact==TamañoMax){
             System.out.println("Lista llena");

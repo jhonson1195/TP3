@@ -172,6 +172,8 @@ public class Configuracion extends javax.swing.JFrame {
         PanelCentral Panel = new PanelCentral();
         Panel.setDatos(Mapa, Cantidades);
         Panel.setVisible(true);
+        VentanaMapa M =new VentanaMapa(Mapa);
+        M.setVisible(true);
         dispose();
         
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -179,14 +181,14 @@ public class Configuracion extends javax.swing.JFrame {
     public void CargarMapaGrafo(){
         Mapa.setTamañoMaximo(10);
         Mapa.AgregarNodo(1, "Sanjose");
-        Mapa.AgregarNodo(301, "hola");
-        Mapa.AgregarNodo(302, "hola");
-        Mapa.AgregarNodo(303, "hola");
-        Mapa.AgregarNodo(304, "hola");
-        Mapa.AgregarNodo(101, "hola");
-        Mapa.AgregarNodo(102, "hola");
-        Mapa.AgregarNodo(103, "hola");
-        Mapa.AgregarNodo(307, "hola");
+        Mapa.AgregarNodo(301, "Heredia");
+        Mapa.AgregarNodo(302, "Limon");
+        Mapa.AgregarNodo(303, "Cartago");
+        Mapa.AgregarNodo(304, "Siquirres");
+        Mapa.AgregarNodo(101, "Orotina");
+        Mapa.AgregarNodo(102, "Parrita");
+        Mapa.AgregarNodo(103, "Gguna");
+        Mapa.AgregarNodo(307, "puebla");
         Mapa.AgregarNodo(308, "hola");
         Mapa.RelacionarNodo(301, 302, 10);
         Mapa.RelacionarNodo(301, 303, 10);
