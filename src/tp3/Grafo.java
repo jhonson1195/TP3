@@ -16,11 +16,12 @@ public class Grafo {
     private int tamañoact;
     NodoRuta n1;
     
-    public Grafo(int TamañoMax){
+    public void setTamañoMaximo(int TamañoMax){
         this.TamañoMax=TamañoMax;
         Lista=new Nodo [TamañoMax];
         Matriz= new Integer [TamañoMax][TamañoMax]; 
         tamañoact=0;
+        
     }
     
     public void AgregarNodo(int Punto, String Dirrecion){
@@ -68,6 +69,7 @@ public class Grafo {
     public void RutaCorta(int Inicial, int Final){
         NodoRuta [] Dijktra= new NodoRuta[TamañoMax];
         int j=BuscarIndice(Inicial);
+        int anterior=0;
         
         for(int i=0; i<TamañoMax;i++){
             NodoRuta temp= new NodoRuta(Lista[i].getPunto());
@@ -76,17 +78,24 @@ public class Grafo {
         int Distancia=0;
         for(int con=0; con<TamañoMax;con++){
             Dijktra[j].setRutaMenor();
-            Dijktra[j].setRutaPunto_Distancia(Lista[j].getPunto(), Distancia);
+            if(Distancia==0){
+               Dijktra[j].setRutaPunto_Distancia(Lista[j].getPunto(), Distancia);
+            }
+            else{
+                Dijktra[j].setRutaPunto_Distancia(anterior, Distancia);
+            }
+            
             for(int indice=0; indice<TamañoMax;indice++){
                 if(Matriz[j][indice]!=null){
                     if(!Dijktra[indice].getRutaMenor()){
                         int suma;
                         if(Dijktra[indice].Distancia()==null){
-                            Dijktra[indice].setRutaPunto_Distancia(Lista[indice].getPunto(), Distancia);
+                            suma = Distancia + Matriz[j][indice];
+                            Dijktra[indice].setRutaPunto_Distancia(Lista[j].getPunto(), suma);
                         }else{
-                            suma= Dijktra[j].Distancia() + Matriz[j][indice];
+                            suma= Distancia + Matriz[j][indice];
                             if(suma<Dijktra[indice].Distancia()){
-                                Dijktra[indice].setRutaPunto_Distancia(Lista[indice].getPunto(), suma);
+                                Dijktra[indice].setRutaPunto_Distancia(Lista[j].getPunto(), suma);
                             }
                         }   
                             
@@ -118,12 +127,23 @@ public class Grafo {
                 }
             }
             
-            System.out.println(j);
-            
+            //System.out.println(j);
             j=BuscarIndice(n1.getPunto());
-            Distancia=n1.Distancia();
+            Distancia=Dijktra[j].Distancia();
+            anterior=Dijktra[j].getRutaPunto();
         }
-        System.out.println(Dijktra[2].Distancia());
+        for(NodoRuta n3:Dijktra){
+            System.out.println(n3.getPunto()+" "+n3.getRutaPunto()+" "+n3.Distancia());
+        }
+        j=BuscarIndice(Final);
+        DoublyLinkedList<Integer> Camino = new DoublyLinkedList<>();
+        Camino.append(Final);
+        while(Dijktra[j].getRutaPunto()!=Inicial){
+            Camino.append(Dijktra[j].getRutaPunto());
+            j=BuscarIndice(Dijktra[j].getRutaPunto());
+        }
+        Camino.append(Inicial);
+        System.out.println(Camino.toString());
     }
         
     
