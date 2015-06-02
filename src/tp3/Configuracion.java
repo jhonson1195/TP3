@@ -200,7 +200,7 @@ public class Configuracion extends javax.swing.JFrame {
         Mapa.RelacionarNodo(304, 307, 10);
         Mapa.RelacionarNodo(307, 308, 20);
         //g.Imprimir();
-        Mapa.RutaCorta(301,308);
+        //Mapa.RutaCorta(301,308);
         
     }
     /**
