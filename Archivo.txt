@@ -1,0 +1,18 @@
+PUNTOS
+1 SanJose Centro de distribución de FADSI.
+301 Cartago 100 metros norte de las ruinas, casa azul.
+302 Cartago Paseo Metropoli, local Pizza Hut.
+303 Cartago Paseo Metropoli, local RostiPollos.
+304 Cartago Instituto Tecnologico de Costa Rica.
+101 SanJose San pedro, 1000 metros norte de la Iglesia.
+102 SanJose San pedro, UCR departamento de biología.
+103 SanJose Family Pizza.
+Mapa
+1 101(10) 102(10)
+301 302(10) 303(10) 304(10) 102(40)
+302 301(10) 303(1) 102(25) 103(20)
+303 302(1) 301(11)
+304 301(10) 102(45)
+101 102(10) 1(10)
+102 101(10) 103(20) 301(40) 302(35) 304(45) 1(10)
+103 101(15)
