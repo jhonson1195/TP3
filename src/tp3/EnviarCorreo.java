@@ -1,3 +1,5 @@
+package tp3;
+
 import java.util.Properties; 
 import javax.mail.*; 
 import javax.mail.internet.InternetAddress; 
@@ -60,17 +62,6 @@ public class EnviarCorreo {
         public PasswordAuthentication getPasswordAuthentication() { 
             return new PasswordAuthentication(Cuenta, Contraseña); 
         } 
-    }
-    
-    public static void main(String[] args) throws MessagingException {
-        EnviarCorreo Envia = new EnviarCorreo();
-        //
-        //Envia.Enviador("50671050570@email.smsglobal.com", "Asunto: hola", "Texto: Soy Esteban");
-        Envia.Enviador("87113820@envio.SMS506.com", "Asunto: hola", "Texto: Soy Esteban");
-        //Envia.Enviador("87113820@sms.ice.cr", "Asunto: hola", "Texto: Soy Esteban");
-        //Envia.Enviador("50687444859@email.smsglobal.com", "Asunto: hola", "Texto: Soy Esteban");
-        //Envia.Enviador("estebanmorales1594@hotmail.com", "Asunto: hola", "Texto: Soy Esteban");
-        System.out.println("Mensaje Enviado"); 
     }
 }
 

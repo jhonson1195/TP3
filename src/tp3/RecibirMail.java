@@ -13,15 +13,20 @@ import javax.mail.Store;
 
 public class RecibirMail{
     
-    EnviarCorreo Envia = new EnviarCorreo();
+    EnviarCorreo Envia;
     String cliente;
     String [] Datos;
+    
+    RecibirMail(){
+        Envia = new EnviarCorreo();
+    }
    
     public String [] getDatos(){
         return Datos;
     }
     
-    public void enviarCorreo(){
+    
+    public void enviarCorreo() throws MessagingException{
         String Correo=accederCorreo(cliente);
         Envia.Enviador(Correo, "Pedido", "Acuse de recibido y que su pedido será procesado en los próximos minutos. ");
     }
@@ -94,6 +99,7 @@ public class RecibirMail{
                     str2=str2.replace("Nombre: ", "");
                     str2=str2.replace("Recolectar: ", "");
                     str2=str2.replace("Entregar: ", "");
+                    System.out.println(str2);
                     Datos = str2.split(System.getProperty("line.separator"));
                     
                    

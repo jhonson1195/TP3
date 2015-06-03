@@ -5,6 +5,8 @@
  */
 package tp3;
 
+import java.util.Arrays;
+
 /**
  *
  * @author jhonson
@@ -18,6 +20,7 @@ public class TP3 {
         // TODO code application logic here
         Configuracion conf = new Configuracion();
         conf.setVisible(true);
+        
     }
     
 }
