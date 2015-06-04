@@ -17,30 +17,61 @@ import java.io.*;
       File archivo = null;
       FileReader fr = null;
       BufferedReader br = null;
-      
- 
+      BufferedReader tr = null;
+      FileReader fr1 = null;
+      String puntos [][];
+      int Mapa [][];
+      int cont1=0;
       try {
          // Apertura del fichero y creacion de BufferedReader para poder
          // hacer una lectura comoda (disponer del metodo readLine()).
          archivo = new File ("C:\\archivo.txt");
          fr = new FileReader (archivo);
          br = new BufferedReader(fr);
- 
+         fr1 = new FileReader (archivo);
+         tr = new BufferedReader(fr1);
+         
          // Lectura del fichero
          //String linea;
          String linea="";
+         String tam1="";
          String [] arreglo = null;
          
-         while((linea=br.readLine())!=null){
-            //System.out.println(linea+"lineas");
+         
+         // Se obtiene el tamaño del grafo
+         int tam=0;
+         while((tam1=br.readLine())!=null&&(tam1=br.readLine())!="Mapa"){
+             tam++;
             
-            arreglo = linea.split(",");
+         }
+             tam=tam-1; 
+
+            // tamaño del grafo
+              System.out.println(tam);
+         //    puntos = new String [tam][tam];
+         //    Mapa = new int[tam][tam];
+         while((linea=tr.readLine())!=null){
+          //  while((linea=tr.readLine())!="MAPA"){
+               
+                arreglo = linea.split(" ");
+            //    puntos[cont1][0]=linea;
+              //  for(int a=0; a < arreglo.length;a++ ){
+            //        puntos[cont1][a]=arreglo[a];
+                   // }
+              //  cont1++;
+                 for(int a=0; a < arreglo.length;a++ ){
+                //while
+                
+                System.out.println(arreglo[a]);
+               
+            }
+            }
+            
+           // arreglo = linea.split(" ");
             
          
-            for(int a=0; a < arreglo.length;a++ ){
-                System.out.println(arreglo[a]);
-            }
-         }
+           
+         //}
       }
       catch(Exception e){
          e.printStackTrace();
