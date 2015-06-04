@@ -16,19 +16,27 @@ public class RecibirMail{
     EnviarCorreo Envia;
     String cliente;
     String [] Datos;
+    boolean Bandera;
     
     RecibirMail(){
         Envia = new EnviarCorreo();
+        Bandera=false;
     }
    
     public String [] getDatos(){
         return Datos;
     }
     
+    public boolean getEstado(){
+        return Bandera;
+    }
+    public String getCorreoCliente(){
+        return cliente;
+    }
     
     public void enviarCorreo() throws MessagingException{
         String Correo=accederCorreo(cliente);
-        Envia.Enviador(Correo, "Pedido", "Acuse de recibido y que su pedido será procesado en los próximos minutos. ");
+        Envia.Enviador(Correo, "Respueta del Pedido", "Acuse de recibido y que su pedido será procesado en los próximos minutos. ");
     }
     
     
@@ -99,12 +107,11 @@ public class RecibirMail{
                     str2=str2.replace("Nombre: ", "");
                     str2=str2.replace("Recolectar: ", "");
                     str2=str2.replace("Entregar: ", "");
-                    System.out.println(str2);
                     Datos = str2.split(System.getProperty("line.separator"));
-                    
-                   
+                    Bandera=true;
                 }
             }
+            
         }catch (MessagingException | IOException e){
             System.out.println("Error al leer el correo");
         }

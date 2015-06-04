@@ -80,7 +80,7 @@ public class Grafo {
         return j;
     }
     
-    public void RutaCorta(int Inicial, int Final){
+    public int [] RutaCorta(int Inicial, int Final){
         NodoRuta [] Dijktra= new NodoRuta[TamañoMax];
         int j=BuscarIndice(Inicial);
         int anterior=0;
@@ -157,7 +157,13 @@ public class Grafo {
             j=BuscarIndice(Dijktra[j].getRutaPunto());
         }
         Camino.append(Inicial);
-        System.out.println(Camino.toString());
+        int [] TEmp = new int [Camino.size()];
+        int ls=0;
+        for(int i=Camino.size()-1; i>=0; i--){
+            TEmp[i]= Camino.get(ls);
+            ls++;
+        }
+        return TEmp;
     }
         
     

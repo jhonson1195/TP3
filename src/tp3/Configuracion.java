@@ -158,8 +158,8 @@ public class Configuracion extends javax.swing.JFrame {
         }
         try{
             Cantidades[0]=Integer.parseInt(jTextField1.getText());
-            Cantidades[1]=Integer.parseInt(jTextField2.getText());
-            Cantidades[2]=Integer.parseInt(jTextField3.getText());
+            Cantidades[2]=Integer.parseInt(jTextField2.getText());
+            Cantidades[1]=Integer.parseInt(jTextField3.getText());
         }catch(java.lang.NumberFormatException e){
             JOptionPane.showMessageDialog(frame,"Por favor ingrese un numero entero");
             return;

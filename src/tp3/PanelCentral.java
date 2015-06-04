@@ -6,6 +6,9 @@
 package tp3;
 
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.MessagingException;
 
 /**
  *
@@ -16,6 +19,7 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
     DoublyLinkedList<Pedido> ColaPedidos;
     int [] Cantidades;
     Thread temporizador;
+    Thread temporizador2;
     
 
     /**
@@ -26,6 +30,8 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
         ColaPedidos= new DoublyLinkedList<>();
         temporizador = new Thread(this);
         temporizador.start();
+        temporizador2 = new Thread(this);
+        temporizador2.start();
         
     }
     
@@ -44,10 +50,13 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Panel Central");
+
+        jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -56,14 +65,21 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
             .addGroup(layout.createSequentialGroup()
                 .addGap(325, 325, 325)
                 .addComponent(jLabel1)
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(88, 88, 88))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(489, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel2)))
+                .addContainerGap(474, Short.MAX_VALUE))
         );
 
         pack();
@@ -72,29 +88,75 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
-
+    /**
+     * Cada 15 segundos se comprueba si hay un correo nuevo
+     */
     @Override
     public void run() {
-        
+        run2();
         Thread ct = Thread.currentThread();
         while(ct == temporizador) {  
            RecibirMail CorreoR = new RecibirMail();
            CorreoR.conectar();
-           if(CorreoR.getDatos().length!=0){
-               System.out.println(CorreoR.getDatos()[2]);
-               System.out.println(CorreoR.getDatos()[3]);
-               Pedido P = new Pedido(CorreoR.getDatos()[0] ,CorreoR.getDatos()[1],convetir(CorreoR.getDatos()[2]),convetir(CorreoR.getDatos()[2]));
+           if(CorreoR.getEstado()){
+               Pedido P = new Pedido(CorreoR.getDatos()[0] ,CorreoR.getDatos()[1],convetir(CorreoR.getDatos()[2]),convetir(CorreoR.getDatos()[2]), CorreoR.getCorreoCliente());
                ColaPedidos.append(P);
+               System.out.println("okkkkkkkkk");
+               try {
+                   CorreoR.enviarCorreo();
+               } catch (MessagingException ex) {
+                   Logger.getLogger(PanelCentral.class.getName()).log(Level.SEVERE, null, ex);
+               }
            }
-
             try {
                 Thread.sleep(1000*15);
                 }catch(InterruptedException e) {}
-
         }
 
         
+    }
+    
+    public void run2() {
+        int segundos=59;
+        int minutos=Cantidades[1]-1;
+        
+        Thread ct = Thread.currentThread();
+        while(ct == temporizador2) {  
+            if(segundos==0){
+                segundos=59;
+                minutos--;
+            }
+            jLabel2.setText(minutos+":"+segundos);
+            
+            if(Cantidades[0]!=0){
+                segundos--;
+                if((segundos==0 & 0==minutos) | Cantidades[2]==ColaPedidos.size()){
+                    generarRuta();
+                    segundos=59;
+                    minutos=Cantidades[1]-1;
+                }
+            }
+            try {
+                Thread.sleep(1000);
+            }catch(InterruptedException e) {}
+        } 
+    }
+    
+    public void generarRuta(){
+        /*
+        for(int i=0;i>ColaPedidos.size();i++){
+            ColaPedidos.get(i).setEntrega();
+            ColaPedidos.get(i).setRecolecta();
+            int [] r=Mapa.RutaCorta(ColaPedidos.get(i).getRecolectar(),ColaPedidos.get(i).getEntregar());
+            for(int j=0;j>ColaPedidos.size();i++){
+                
+            }
+        }
+        
+        
+        Cantidades[0]--;*/
     }
     
     public int convetir(String re){
