@@ -36,16 +36,16 @@ public class Pedido {
     public int getEntregar(){
         return Entregar;
     }
-    public boolean getRecolecta(){
+    public boolean getRecolectaBoolean(){
         return Recolecta;
     }
-    public void setRecolecta(){
+    public void setRecolectaBoolean(){
         Recolecta=true;
     }
-    public boolean getEntrega(){
+    public boolean getEntregaBoolean(){
         return Entrega;
     }
-    public void setEntrega(){
+    public void setEntregaBoolean(){
         Entrega=true;
     }
 }

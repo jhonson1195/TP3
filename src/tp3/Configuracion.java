@@ -169,8 +169,7 @@ public class Configuracion extends javax.swing.JFrame {
         }
         
         CargarMapaGrafo();
-        PanelCentral Panel = new PanelCentral();
-        Panel.setDatos(Mapa, Cantidades);
+        PanelCentral Panel = new PanelCentral(Mapa, Cantidades);
         Panel.setVisible(true);
         VentanaMapa M =new VentanaMapa(Mapa);
         M.setVisible(true);
@@ -199,6 +198,7 @@ public class Configuracion extends javax.swing.JFrame {
         Mapa.RelacionarNodo(303, 307, 50);
         Mapa.RelacionarNodo(304, 307, 10);
         Mapa.RelacionarNodo(307, 308, 20);
+        Mapa.RelacionarNodo(1, 303, 20);
         //g.Imprimir();
         //Mapa.RutaCorta(301,308);
         

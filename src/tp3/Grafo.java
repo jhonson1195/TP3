@@ -80,6 +80,14 @@ public class Grafo {
         return j;
     }
     
+    public int DuracionRuta(int [] Ruta){
+        int suma=0;
+        for(int i=0;i<Ruta.length-1;i++){
+            suma+=Matriz[BuscarIndice(Ruta[i])][BuscarIndice(Ruta[i+1])];
+        }
+        return suma;
+    }
+    
     public int [] RutaCorta(int Inicial, int Final){
         NodoRuta [] Dijktra= new NodoRuta[TamañoMax];
         int j=BuscarIndice(Inicial);
@@ -147,7 +155,7 @@ public class Grafo {
             anterior=Dijktra[j].getRutaPunto();
         }
         for(NodoRuta n3:Dijktra){
-            System.out.println(n3.getPunto()+" "+n3.getRutaPunto()+" "+n3.Distancia());
+            //System.out.println(n3.getPunto()+" "+n3.getRutaPunto()+" "+n3.Distancia());
         }
         j=BuscarIndice(Final);
         DoublyLinkedList<Integer> Camino = new DoublyLinkedList<>();

@@ -6,6 +6,9 @@
 package tp3;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
@@ -20,25 +23,33 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
     int [] Cantidades;
     Thread temporizador;
     Thread temporizador2;
+    String hora, minutos, segundos, ampm;
+    Calendar calendario;
     
 
     /**
      * Creates new form PanelCentral
+     * @param Mapa
+     * @param Cantidades
      */
-    public PanelCentral() {
+    public PanelCentral(Grafo Mapa, int [] Cantidades) {
         initComponents();
         ColaPedidos= new DoublyLinkedList<>();
+        this.Mapa=Mapa;
+        this.Cantidades=Cantidades;
         temporizador = new Thread(this);
         temporizador.start();
         temporizador2 = new Thread(this);
         temporizador2.start();
+        Pedido o = new Pedido("ddd" ,"nobre",301,307, "correo");
+        ColaPedidos.append(o);
+        Pedido k = new Pedido("ddd" ,"nobre",307,308, "correo");
+        ColaPedidos.append(k);
+        Pedido l = new Pedido("ddd" ,"nobre",303,308, "correo");
+        ColaPedidos.append(l);
         
     }
     
-    public void setDatos(Grafo Mapa, int [] Cantidades){
-        this.Mapa=Mapa;
-        this.Cantidades=Cantidades;
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,12 +62,20 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Panel Central");
 
         jLabel2.setText("jLabel2");
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -68,6 +87,10 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(88, 88, 88))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(172, 172, 172))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,14 +102,26 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jLabel2)))
-                .addContainerGap(474, Short.MAX_VALUE))
+                .addGap(115, 115, 115)
+                .addComponent(jButton1)
+                .addContainerGap(329, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        generarRuta();
+        System.out.println(Arrays.toString(hora()));
+        int [] g ={301,303,307,308};
+        
+        System.out.println(Mapa.DuracionRuta(g));
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
@@ -103,7 +138,6 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
            if(CorreoR.getEstado()){
                Pedido P = new Pedido(CorreoR.getDatos()[0] ,CorreoR.getDatos()[1],convetir(CorreoR.getDatos()[2]),convetir(CorreoR.getDatos()[2]), CorreoR.getCorreoCliente());
                ColaPedidos.append(P);
-               System.out.println("okkkkkkkkk");
                try {
                    CorreoR.enviarCorreo();
                } catch (MessagingException ex) {
@@ -133,7 +167,7 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
             if(Cantidades[0]!=0){
                 segundos--;
                 if((segundos==0 & 0==minutos) | Cantidades[2]==ColaPedidos.size()){
-                    generarRuta();
+                    //generarRuta();
                     segundos=59;
                     minutos=Cantidades[1]-1;
                 }
@@ -145,18 +179,70 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
     }
     
     public void generarRuta(){
-        /*
-        for(int i=0;i>ColaPedidos.size();i++){
-            ColaPedidos.get(i).setEntrega();
-            ColaPedidos.get(i).setRecolecta();
-            int [] r=Mapa.RutaCorta(ColaPedidos.get(i).getRecolectar(),ColaPedidos.get(i).getEntregar());
-            for(int j=0;j>ColaPedidos.size();i++){
-                
+        int [] Hora=hora();
+        int punto_actual=1;
+        int [] Ruta;
+        System.out.println("Putno 1 Salida: "+Hora[0]+":"+Hora[1]);
+        for(int i=0;i<ColaPedidos.size();i++){
+            if(!ColaPedidos.get(i).getRecolectaBoolean()){
+                System.out.println("Recolecta "+ ColaPedidos.get(i).getRecolectar());
+                ColaPedidos.get(i).setRecolectaBoolean();
+                Ruta=Mapa.RutaCorta(punto_actual,ColaPedidos.get(i).getRecolectar());
+            
+                for(int j=0;j<ColaPedidos.size();j++){
+                    if(!ColaPedidos.get(j).getRecolectaBoolean()){
+                        for(int P:Ruta){
+                           if (ColaPedidos.get(j).getRecolectar()==P){
+                               ColaPedidos.get(j).setRecolectaBoolean();
+                               System.out.println("Recolecta "+ColaPedidos.get(j).getRecolectar());
+                           }
+                           if(ColaPedidos.get(j).getRecolectaBoolean()){
+                                    if(!ColaPedidos.get(j).getEntregaBoolean()){
+                              
+                                        if (ColaPedidos.get(j).getEntregar()==P){
+                                            ColaPedidos.get(j).setEntregaBoolean();
+                                            System.out.println("Entrega "+ColaPedidos.get(j).getEntregar());
+                                        }
+                                
+                                    }
+                                }  
+                        }
+
+                    }
+               
+                }
             }
-        }
-        
-        
-        Cantidades[0]--;*/
+                
+                if(!ColaPedidos.get(i).getEntregaBoolean()){
+                    ColaPedidos.get(i).setEntregaBoolean();
+                    System.out.println("Entrega "+ColaPedidos.get(i).getEntregar());
+                    Ruta=Mapa.RutaCorta(ColaPedidos.get(i).getRecolectar(),ColaPedidos.get(i).getEntregar());
+
+                    for(int j=0;j<ColaPedidos.size();j++){
+                        if(!ColaPedidos.get(j).getRecolectaBoolean()){
+                            for(int P:Ruta){
+                               if (ColaPedidos.get(j).getRecolectar()==P){
+                                   ColaPedidos.get(j).setRecolectaBoolean();
+                                   System.out.println("Recolecta "+ColaPedidos.get(j).getRecolectar());
+                               }
+                               if(ColaPedidos.get(j).getRecolectaBoolean()){
+                                    if(!ColaPedidos.get(j).getEntregaBoolean()){
+                              
+                                        if (ColaPedidos.get(j).getEntregar()==P){
+                                            ColaPedidos.get(j).setEntregaBoolean();
+                                            System.out.println("Entrega "+ColaPedidos.get(j).getEntregar());
+                                        }
+                                
+                                    }
+                                }  
+                            }
+
+                        } 
+                    }
+                }
+           punto_actual=ColaPedidos.get(i).getEntregar();
+           
+        }  
     }
     
     public int convetir(String re){
@@ -172,4 +258,11 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
         return Integer.parseInt(Resul);
     }
     
+    public int [] hora(){
+        Calendar calendario = new GregorianCalendar();
+        Date fechaHoraActual = new Date();
+        calendario.setTime(fechaHoraActual);
+        int [] Hora={calendario.get(Calendar.HOUR_OF_DAY),calendario.get(Calendar.MINUTE)};
+        return Hora;
+    } 
 }
