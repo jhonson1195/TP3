@@ -37,6 +37,10 @@ public class Grafo {
     public Integer [][] getAyacencia(){
         return Matriz;
     }
+    public int getDuracionP_P(int Punto1, int Punto2){
+        return Matriz[BuscarIndice(Punto1)][BuscarIndice(Punto2)];
+        
+    }
     
     public void AgregarNodo(int Punto, String Ciudad,String Dirrecion){
         if(tamañoact==TamañoMax){

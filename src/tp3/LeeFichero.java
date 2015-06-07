@@ -26,7 +26,7 @@ import java.util.*;
         try {
             // Apertura del fichero y creacion de BufferedReader para poder
             // hacer una lectura comoda (disponer del metodo readLine()).
-            archivo = new File ("C:/Users/Esteban/Documents/GitHub/TP3/archivo.txt");
+            archivo = new File ("/home/jhonson/Escritorio/TP3/Archivo.txt");
             fr = new FileReader (archivo);
             br = new BufferedReader(fr);
             fr1 = new FileReader (archivo);

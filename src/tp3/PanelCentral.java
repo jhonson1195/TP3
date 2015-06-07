@@ -25,6 +25,8 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
     Thread temporizador2;
     String hora, minutos, segundos, ampm;
     Calendar calendario;
+    int [] Hora;
+    int [] Hora2 =new int [2];
     
 
     /**
@@ -179,70 +181,127 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
     }
     
     public void generarRuta(){
-        int [] Hora=hora();
+        Hora2=hora();
         int punto_actual=1;
         int [] Ruta;
-        System.out.println("Putno 1 Salida: "+Hora[0]+":"+Hora[1]);
+       
         for(int i=0;i<ColaPedidos.size();i++){
             if(!ColaPedidos.get(i).getRecolectaBoolean()){
-                System.out.println("Recolecta "+ ColaPedidos.get(i).getRecolectar());
-                ColaPedidos.get(i).setRecolectaBoolean();
                 Ruta=Mapa.RutaCorta(punto_actual,ColaPedidos.get(i).getRecolectar());
+                ColaPedidos.get(i).setRecolectaBoolean();
+                boolean Bandera=false;
+                int count=0;
             
-                for(int j=0;j<ColaPedidos.size();j++){
-                    if(!ColaPedidos.get(j).getRecolectaBoolean()){
-                        for(int P:Ruta){
-                           if (ColaPedidos.get(j).getRecolectar()==P){
+                
+                for(int P:Ruta){
+                   
+                   
+                   for(int j=0;j<ColaPedidos.size();j++){
+                      if(!ColaPedidos.get(j).getRecolectaBoolean()){
+                          if (ColaPedidos.get(j).getRecolectar()==P){
                                ColaPedidos.get(j).setRecolectaBoolean();
-                               System.out.println("Recolecta "+ColaPedidos.get(j).getRecolectar());
-                           }
-                           if(ColaPedidos.get(j).getRecolectaBoolean()){
-                                    if(!ColaPedidos.get(j).getEntregaBoolean()){
-                              
-                                        if (ColaPedidos.get(j).getEntregar()==P){
-                                            ColaPedidos.get(j).setEntregaBoolean();
-                                            System.out.println("Entrega "+ColaPedidos.get(j).getEntregar());
-                                        }
+                               System.out.println("Recolecta "+ColaPedidos.get(j).getRecolectar()+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                               Bandera=true;
+                          }
+                          
+                      }
+                        if(ColaPedidos.get(j).getRecolectaBoolean()){
+                            if(!ColaPedidos.get(j).getEntregaBoolean()){
+                                if (ColaPedidos.get(j).getEntregar()==P){
+                                    ColaPedidos.get(j).setEntregaBoolean();
+                                    System.out.println("Entrega "+ColaPedidos.get(j).getEntregar()+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                                    Bandera=true;
+                                }
                                 
-                                    }
-                                }  
-                        }
-
-                    }
-               
+                            }
+                        } 
+                      
+                   }
+                   
+                   if(!Bandera && count!=0 && count!= Ruta.length-1){
+                       System.out.println("Puto: "+ P+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                   }
+                   if(count!=Ruta.length-1){
+                    sumahora(Mapa.getDuracionP_P(Ruta[count], Ruta[count+1]));
+                    System.out.println(Mapa.getDuracionP_P(Ruta[count], Ruta[count+1]));
+                   }
+                   
+                   count++;
                 }
+                
+                System.out.println("Recolecta "+ ColaPedidos.get(i).getRecolectar()+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                
             }
                 
                 if(!ColaPedidos.get(i).getEntregaBoolean()){
                     ColaPedidos.get(i).setEntregaBoolean();
-                    System.out.println("Entrega "+ColaPedidos.get(i).getEntregar());
                     Ruta=Mapa.RutaCorta(ColaPedidos.get(i).getRecolectar(),ColaPedidos.get(i).getEntregar());
-
-                    for(int j=0;j<ColaPedidos.size();j++){
-                        if(!ColaPedidos.get(j).getRecolectaBoolean()){
-                            for(int P:Ruta){
-                               if (ColaPedidos.get(j).getRecolectar()==P){
-                                   ColaPedidos.get(j).setRecolectaBoolean();
-                                   System.out.println("Recolecta "+ColaPedidos.get(j).getRecolectar());
-                               }
-                               if(ColaPedidos.get(j).getRecolectaBoolean()){
-                                    if(!ColaPedidos.get(j).getEntregaBoolean()){
-                              
-                                        if (ColaPedidos.get(j).getEntregar()==P){
-                                            ColaPedidos.get(j).setEntregaBoolean();
-                                            System.out.println("Entrega "+ColaPedidos.get(j).getEntregar());
-                                        }
-                                
-                                    }
-                                }  
+                    boolean Bandera=false;
+                    int count=0;
+                    for(int P:Ruta){
+                    
+                        for(int j=0;j<ColaPedidos.size();j++){
+                            if(!ColaPedidos.get(j).getRecolectaBoolean()){
+                                if (ColaPedidos.get(j).getRecolectar()==P){
+                                    ColaPedidos.get(j).setRecolectaBoolean();
+                                    System.out.println("Recolecta "+ColaPedidos.get(j).getRecolectar()+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                                    Bandera=true;
+                                }
                             }
+                            if(ColaPedidos.get(j).getRecolectaBoolean()){
+                                if(!ColaPedidos.get(j).getEntregaBoolean()){
+                                    if (ColaPedidos.get(j).getEntregar()==P){
+                                        ColaPedidos.get(j).setEntregaBoolean();
+                                        System.out.println("Entrega "+ColaPedidos.get(j).getEntregar()+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                                        Bandera=true;
+                                    }
+                                
+                                }
+                            } 
+                      
+                   }
+                   
+                   if(!Bandera && count!=0 && count!= Ruta.length-1){
+                       System.out.println("Puto: "+ P+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                   }
+                   if(count!=Ruta.length-1){
+                    sumahora(Mapa.getDuracionP_P(Ruta[count], Ruta[count+1]));
+                    System.out.println(Mapa.getDuracionP_P(Ruta[count], Ruta[count+1]));
+                   }
+                   count++;
 
-                        } 
-                    }
+                   
+                }
+                    System.out.println("Entrega "+ColaPedidos.get(i).getEntregar()+"Llegada: "+Hora2[0]+":"+Hora2[1]);
                 }
            punto_actual=ColaPedidos.get(i).getEntregar();
            
         }  
+    }
+    public void sumahora(int minutos){
+        int suma= Hora2[1]+minutos;
+        int div = suma/59;
+        /*if(div>=2){
+            Hora2[0]=Hora2[0]+div;
+            Hora2[1]=suma -59*div;
+            return Hora2;
+        }*/
+        if(suma>59){
+            Hora2[0]++;
+            Hora2[1]=suma -59;
+        }
+        else{
+            Hora2[1]=suma;
+        }
+
+    }
+    
+    public int [] PartiArreglo(int [] Arreglo, int tamaño){
+        int [] temp = new int [tamaño];
+        for(int i=0; i<tamaño;i++){
+            temp [i]=Arreglo[i];
+        }
+        return temp;
     }
     
     public int convetir(String re){
