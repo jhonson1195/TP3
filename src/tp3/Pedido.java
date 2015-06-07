@@ -11,16 +11,20 @@ package tp3;
  */
 public class Pedido {
     String Cuerpo, Nombre, cliente; 
-    int Recolectar, Entregar;
+    int Recolectar, Entregar, numeroPedido;
     boolean Recolecta= false, Entrega=false;
     
-    public Pedido(String Cuerpo, String Nombre, int Recolectar, int Entregar, String cliente){
+    public Pedido(String Cuerpo, String Nombre, int Recolectar, int Entregar, String cliente, int numeroPedido){
         this.cliente=cliente;
         this.Cuerpo=Cuerpo;
         this.Nombre=Nombre;
         this.Recolectar=Recolectar;
         this.Entregar=Entregar;
+        this.numeroPedido=numeroPedido;
     } 
+    public int getNumeroPedido(){
+        return numeroPedido;
+    }
     public String getcliente(){
         return cliente;
     }

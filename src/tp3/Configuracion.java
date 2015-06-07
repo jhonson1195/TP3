@@ -172,6 +172,7 @@ public class Configuracion extends javax.swing.JFrame {
         }
         if(DireccionTXT==null){
             JOptionPane.showMessageDialog(frame,"Por favor ingrese un mapa");
+            return;
         }
         
         CargarMapaGrafo();

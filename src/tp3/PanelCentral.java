@@ -27,6 +27,8 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
     Calendar calendario;
     int [] Hora;
     int [] Hora2 =new int [2];
+    int SumaDuracion, numeroPedido;
+    boolean RutaGenerada=true;
     
 
     /**
@@ -43,12 +45,14 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
         temporizador.start();
         temporizador2 = new Thread(this);
         temporizador2.start();
-        Pedido o = new Pedido("ddd" ,"nobre",301,307, "correo");
+        numeroPedido=0;
+        
+        /*Pedido o = new Pedido("ddd" ,"nobre",301,307, "correo");
         ColaPedidos.append(o);
         Pedido k = new Pedido("ddd" ,"nobre",307,308, "correo");
         ColaPedidos.append(k);
         Pedido l = new Pedido("ddd" ,"nobre",303,308, "correo");
-        ColaPedidos.append(l);
+        ColaPedidos.append(l);*/
         
     }
     
@@ -65,6 +69,18 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,41 +88,119 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
 
         jLabel2.setText("jLabel2");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Aceptar Ruta");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jLabel3.setText("Repatidores:");
+
+        jLabel4.setText("Pedidos:");
+
+        jLabel5.setText("jLabel5");
+
+        jLabel6.setText("jLabel6");
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane2.setViewportView(jTextArea2);
+
+        jLabel7.setText("Notificaciones");
+
+        jLabel8.setText("Cuenta Regresiva:");
+
+        jLabel9.setText("Repartidores en Ruta:");
+
+        jLabel10.setText("jLabel10");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(325, 325, 325)
+                .addGap(363, 363, 363)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 186, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(88, 88, 88))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(172, 172, 172))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(101, 101, 101))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(73, 73, 73)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2)))
+                        .addGap(64, 64, 64))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(83, 83, 83)
+                                .addComponent(jLabel7))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel10)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(215, 215, 215))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel2)))
-                .addGap(115, 115, 115)
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1)
-                .addContainerGap(329, Short.MAX_VALUE))
+                .addContainerGap(143, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
+                .addGap(102, 102, 102)
+                .addComponent(jLabel7)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -114,18 +208,29 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        generarRuta();
-        System.out.println(Arrays.toString(hora()));
-        int [] g ={301,303,307,308};
+        RutaGenerada=true;
+        Cantidades[0]--;
         
-        System.out.println(Mapa.DuracionRuta(g));
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
     /**
      * Cada 15 segundos se comprueba si hay un correo nuevo
@@ -138,8 +243,16 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
            RecibirMail CorreoR = new RecibirMail();
            CorreoR.conectar();
            if(CorreoR.getEstado()){
-               Pedido P = new Pedido(CorreoR.getDatos()[0] ,CorreoR.getDatos()[1],convetir(CorreoR.getDatos()[2]),convetir(CorreoR.getDatos()[2]), CorreoR.getCorreoCliente());
+               Pedido P = new Pedido(CorreoR.getDatos()[0] ,CorreoR.getDatos()[1],convetir(CorreoR.getDatos()[2]),convetir(CorreoR.getDatos()[3]), CorreoR.getCorreoCliente(), numeroPedido);
                ColaPedidos.append(P);
+               String R="Nuevo pedido: "+"#"+numeroPedido +"\n";
+               R+="Nombre: "+P.getNombre()+"\n";
+               R+="Cuerpo: "+P.getCuerpo()+"\n";
+               R+="Recolecta "+P.getRecolectar()+"\n";
+               R+="Entrega: "+P.getEntregar()+"\n";
+               jTextArea2.setText(R);
+               numeroPedido++;
+               
                try {
                    CorreoR.enviarCorreo();
                } catch (MessagingException ex) {
@@ -159,7 +272,9 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
         int minutos=Cantidades[1]-1;
         
         Thread ct = Thread.currentThread();
-        while(ct == temporizador2) {  
+        while(ct == temporizador2) {
+            jLabel5.setText(String.valueOf(Cantidades[0]));
+            jLabel6.setText(String.valueOf(Cantidades[0]));
             if(segundos==0){
                 segundos=59;
                 minutos--;
@@ -169,7 +284,9 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
             if(Cantidades[0]!=0){
                 segundos--;
                 if((segundos==0 & 0==minutos) | Cantidades[2]==ColaPedidos.size()){
-                    //generarRuta();
+                    if(RutaGenerada){
+                       generarRuta(); 
+                    }
                     segundos=59;
                     minutos=Cantidades[1]-1;
                 }
@@ -181,9 +298,14 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
     }
     
     public void generarRuta(){
+        if(ColaPedidos.isEmpty()){
+            return;
+        }
         Hora2=hora();
         int punto_actual=1;
         int [] Ruta;
+        String Resultado="Punto: 1 Salida: "+Hora2[0]+":"+Hora2[1]+"\n";
+        SumaDuracion=0;
        
         for(int i=0;i<ColaPedidos.size();i++){
             if(!ColaPedidos.get(i).getRecolectaBoolean()){
@@ -200,7 +322,9 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                       if(!ColaPedidos.get(j).getRecolectaBoolean()){
                           if (ColaPedidos.get(j).getRecolectar()==P){
                                ColaPedidos.get(j).setRecolectaBoolean();
-                               System.out.println("Recolecta "+ColaPedidos.get(j).getRecolectar()+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                               Resultado+="Punto: " +ColaPedidos.get(j).getRecolectar()+" Se recolecta pedido #"+ColaPedidos.get(j).getNumeroPedido()+" LLegada: "+Hora2[0]+":"+Hora2[1];
+                               sumahora(1);
+                               Resultado+=" Salida: "+Hora2[0]+":"+Hora2[1]+"\n";
                                Bandera=true;
                           }
                           
@@ -209,7 +333,9 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                             if(!ColaPedidos.get(j).getEntregaBoolean()){
                                 if (ColaPedidos.get(j).getEntregar()==P){
                                     ColaPedidos.get(j).setEntregaBoolean();
-                                    System.out.println("Entrega "+ColaPedidos.get(j).getEntregar()+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                                    Resultado+="Punto: " +ColaPedidos.get(j).getEntregar()+" Se entrega pedido #"+ColaPedidos.get(j).getNumeroPedido()+" LLegada: "+Hora2[0]+":"+Hora2[1];
+                                    sumahora(1);
+                                    Resultado+=" Salida: "+Hora2[0]+":"+Hora2[1]+"\n";
                                     Bandera=true;
                                 }
                                 
@@ -219,17 +345,19 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                    }
                    
                    if(!Bandera && count!=0 && count!= Ruta.length-1){
-                       System.out.println("Puto: "+ P+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                       Resultado+="Puto: "+ P+" LLegada: "+Hora2[0]+":"+Hora2[1]+ " Salida: "+Hora2[0]+":"+Hora2[1]+"\n";
                    }
                    if(count!=Ruta.length-1){
                     sumahora(Mapa.getDuracionP_P(Ruta[count], Ruta[count+1]));
-                    System.out.println(Mapa.getDuracionP_P(Ruta[count], Ruta[count+1]));
                    }
                    
                    count++;
                 }
                 
-                System.out.println("Recolecta "+ ColaPedidos.get(i).getRecolectar()+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                Resultado+="Punto: " +ColaPedidos.get(i).getRecolectar()+" Se recolecta pedido # "+ColaPedidos.get(i).getNumeroPedido()+" LLegada: "+Hora2[0]+":"+Hora2[1];
+                sumahora(1);
+                Resultado+=" Salida: "+Hora2[0]+":"+Hora2[1]+"\n";
+                
                 
             }
                 
@@ -244,7 +372,9 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                             if(!ColaPedidos.get(j).getRecolectaBoolean()){
                                 if (ColaPedidos.get(j).getRecolectar()==P){
                                     ColaPedidos.get(j).setRecolectaBoolean();
-                                    System.out.println("Recolecta "+ColaPedidos.get(j).getRecolectar()+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                                    Resultado+="Punto: " +ColaPedidos.get(j).getRecolectar()+" Se recolecta pedido #"+ColaPedidos.get(j).getNumeroPedido()+" Recolecta "+" LLegada: "+Hora2[0]+":"+Hora2[1];
+                                    sumahora(1);
+                                    Resultado+=" Salida: "+Hora2[0]+":"+Hora2[1]+"\n";
                                     Bandera=true;
                                 }
                             }
@@ -252,7 +382,9 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                                 if(!ColaPedidos.get(j).getEntregaBoolean()){
                                     if (ColaPedidos.get(j).getEntregar()==P){
                                         ColaPedidos.get(j).setEntregaBoolean();
-                                        System.out.println("Entrega "+ColaPedidos.get(j).getEntregar()+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                                        Resultado+="Punto: " +ColaPedidos.get(j).getEntregar()+" Se entrega pedido #"+ColaPedidos.get(j).getNumeroPedido()+" LLegada: "+Hora2[0]+":"+Hora2[1];
+                                        sumahora(1);
+                                        Resultado+=" Salida: "+Hora2[0]+":"+Hora2[1]+"\n";
                                         Bandera=true;
                                     }
                                 
@@ -262,30 +394,36 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                    }
                    
                    if(!Bandera && count!=0 && count!= Ruta.length-1){
-                       System.out.println("Puto: "+ P+" LLegada: "+Hora2[0]+":"+Hora2[1]);
+                       Resultado+="Punto: "+ P+" LLegada: "+Hora2[0]+":"+Hora2[1]+" Salida: "+Hora2[0]+":"+Hora2[1]+"\n";
                    }
                    if(count!=Ruta.length-1){
                     sumahora(Mapa.getDuracionP_P(Ruta[count], Ruta[count+1]));
-                    System.out.println(Mapa.getDuracionP_P(Ruta[count], Ruta[count+1]));
                    }
                    count++;
 
                    
                 }
-                    System.out.println("Entrega "+ColaPedidos.get(i).getEntregar()+"Llegada: "+Hora2[0]+":"+Hora2[1]);
+                    Resultado+="Punto: " +ColaPedidos.get(i).getEntregar()+" Se entrega pedido #"+ColaPedidos.get(i).getNumeroPedido()+" Llegada: "+Hora2[0]+":"+Hora2[1];
+                    sumahora(1);
+                    Resultado+=" Salida: "+Hora2[0]+":"+Hora2[1]+"\n";
                 }
            punto_actual=ColaPedidos.get(i).getEntregar();
            
-        }  
+        } 
+        Resultado+="Tiempo total de la ruta: "+ SumaDuracion +"minutos";
+        jTextArea1.setText(Resultado);
+        RutaGenerada=false;
+        
     }
     public void sumahora(int minutos){
+        SumaDuracion+= minutos;
         int suma= Hora2[1]+minutos;
         int div = suma/59;
-        /*if(div>=2){
+        if(div>=2){
             Hora2[0]=Hora2[0]+div;
             Hora2[1]=suma -59*div;
-            return Hora2;
-        }*/
+            return;
+        }
         if(suma>59){
             Hora2[0]++;
             Hora2[1]=suma -59;
