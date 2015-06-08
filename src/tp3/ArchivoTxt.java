@@ -6,14 +6,13 @@
 package tp3;
 
 import java.io.*;
-import java.math.BigInteger;
-//import static tp3.Configuracion.DireccionTXT;
-import tp3.Puntos;
+import static tp3.Configuracion.DireccionTXT;
 
 /**
  *
- * @author carlosr
+ * @author carlosr respaldo
  */
+
 public class ArchivoTxt {
       File archivo;
       FileReader fr;
@@ -26,9 +25,11 @@ public class ArchivoTxt {
       FileReader fr3;
       BufferedReader br4;
       FileReader fr4;
-      String DireccionTX = "/home/carlos/Escritorio/Archivo.txt";
+     // String DireccionTX = "/home/carlos/Escritorio/Archivo.txt";
       static Stacks <Puntos> puntos = new Stacks();
       static Stacks <Mapas> mapas = new Stacks();
+      Grafo Mapas;
+      
       public void ArchivoTxt(){
           archivo = null;
           fr = null;
@@ -41,7 +42,8 @@ public class ArchivoTxt {
           fr3 = null;
           br4 = null;
           fr4 = null;
-          DireccionTX = "/home/carlos/Escritorio/Archivo.txt";
+          
+          Mapas = new Grafo();
           
           
           
@@ -49,7 +51,7 @@ public class ArchivoTxt {
       
       public  void abrirArchivo(String Direccion) throws FileNotFoundException{
          
-         archivo = new File (DireccionTX);
+         archivo = new File (DireccionTXT);
          fr = new FileReader (archivo);
          br = new BufferedReader(fr);
          fr1 = new FileReader (archivo);
@@ -65,7 +67,7 @@ public class ArchivoTxt {
       
       // Retorna el tamaño del grafo
       public int retornarTam() throws FileNotFoundException, IOException{
-          abrirArchivo(DireccionTX);
+          abrirArchivo(DireccionTXT);
           String tam1="";
           
           int tam=0;
@@ -82,7 +84,7 @@ public class ArchivoTxt {
       }
       
       public int retornarTamMapas() throws FileNotFoundException, IOException{
-          abrirArchivo(DireccionTX);
+          abrirArchivo(DireccionTXT);
           String tam3="";
           
           int tam=0;
@@ -101,7 +103,7 @@ public class ArchivoTxt {
       
       public Stacks puntosgrafo() throws FileNotFoundException, IOException{
           
-          abrirArchivo(DireccionTX);
+          abrirArchivo(DireccionTXT);
           String linea="";
           String arreglo [];
           
@@ -140,7 +142,7 @@ public class ArchivoTxt {
       }
       
       public Stacks mapaGrafo() throws FileNotFoundException, IOException{
-          abrirArchivo(DireccionTX);
+          abrirArchivo(DireccionTXT);
           String linea="";
           String arreglo [];
           int lineas = retornarTamMapas()-retornarTam();
@@ -192,7 +194,7 @@ public class ArchivoTxt {
       }
       
            public void RecorrerPilaMapas() throws IOException{
-          int maximo = retornarTamMapas()-retornarTam();
+          
           
           while(mapas.top()!=null){
               
@@ -226,6 +228,20 @@ public class ArchivoTxt {
             
             return nueva_cadena;
         }
+      
+      public void introducirDatos() throws IOException{
+          puntosgrafo();
+          Mapas.setTamañoMaximo(retornarTam());
+          int tam = retornarTam();
+          for(int i=0;i<tam;i++){
+              Puntos referencia = puntos.pop();
+              int valor1= Integer.parseInt(referencia.nombre);
+              Mapas.AgregarNodo(valor1,referencia.ciudad,referencia.direccion);
+              System.out.println(valor1+ referencia.ciudad+referencia.direccion);
+          }
+          
+          
+      }
       
       public static void main(String [] arg) throws IOException{
         ArchivoTxt pruebas = new ArchivoTxt();

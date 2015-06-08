@@ -13,16 +13,21 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-
+import static tp3.ArchivoTxt.mapas;
+import static tp3.ArchivoTxt.puntos;
+//import static tp3.ArchivoTxt.mapas;
+//import tp3.Puntos;
+//import tp3.Mapas;
 /**
  *
  * @author jhonson
  */
 public class Configuracion extends javax.swing.JFrame {
-    String DireccionTXT=null;
+    static String DireccionTXT=null;
     Grafo Mapa;
     int [] Cantidades;
-
+    ArchivoTxt manejo;
+    
     /**
      * Creates new form Configuracion
      */
@@ -30,6 +35,7 @@ public class Configuracion extends javax.swing.JFrame {
         initComponents();
         Mapa = new Grafo();
         Cantidades =new int [3];
+        manejo = new ArchivoTxt();
     }
 
     /**
@@ -175,7 +181,11 @@ public class Configuracion extends javax.swing.JFrame {
             return;
         }
         
-        CargarMapaGrafo();
+        try {
+            CargarMapaGrafo();
+        } catch (IOException ex) {
+            Logger.getLogger(Configuracion.class.getName()).log(Level.SEVERE, null, ex);
+        }
         PanelCentral Panel = new PanelCentral(Mapa, Cantidades);
         Panel.setVisible(true);
         VentanaMapa M =new VentanaMapa(Mapa);
@@ -184,31 +194,52 @@ public class Configuracion extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    public void CargarMapaGrafo(){
-        Mapa.setTamañoMaximo(10);
-        Mapa.AgregarNodo(1, "Sanjose", "direcion");
-        Mapa.AgregarNodo(301, "Heredia", "direcion");
-        Mapa.AgregarNodo(302, "Limon", "direcion");
-        Mapa.AgregarNodo(303, "Cartago", "direcion");
-        Mapa.AgregarNodo(304, "Siquirres", "direcion");
-        Mapa.AgregarNodo(101, "Orotina", "direcion");
-        Mapa.AgregarNodo(102, "Parrita", "direcion");
-        Mapa.AgregarNodo(103, "Gguna", "direcion");
-        Mapa.AgregarNodo(307, "puebla", "direcion");
-        Mapa.AgregarNodo(308, "hola", "direcion");
-        Mapa.RelacionarNodo(301, 302, 10);
-        Mapa.RelacionarNodo(301, 303, 10);
-        Mapa.RelacionarNodo(301, 304, 10);
-        Mapa.RelacionarNodo(301, 102, 40);
-        Mapa.RelacionarNodo(303, 302, 10);
-        Mapa.RelacionarNodo(303, 301, 11);
-        Mapa.RelacionarNodo(303, 307, 50);
-        Mapa.RelacionarNodo(304, 307, 10);
-        Mapa.RelacionarNodo(307, 308, 20);
+    public void CargarMapaGrafo() throws IOException{
+        int tam= manejo.retornarTam();
+        manejo.puntosgrafo();
+        manejo.mapaGrafo();
+        Mapa.setTamañoMaximo(tam);
+        for(int i=0;i<tam;i++){
+            Puntos referencia = (puntos.pop());
+            int valor1= Integer.parseInt(referencia.nombre);
+            Mapa.AgregarNodo(valor1,referencia.ciudad,referencia.direccion); 
+         
+       }
+       
+        while(mapas.top()!=null){
+          Mapas referencia = (mapas.pop());
+            int valor2 = Integer.parseInt(referencia.origen);
+            int valor3 = Integer.parseInt(referencia.destino);
+            int valor4 =Integer.parseInt(referencia.tiempo);
+            Mapa.RelacionarNodo(valor2, valor3, valor4);
+            
+                
+        }
+        
+        
+        //Mapa.AgregarNodo(1, "Sanjose", "direcion");
+        //Mapa.AgregarNodo(301, "Heredia", "direcion");
+        //Mapa.AgregarNodo(302, "Limon", "direcion");
+        //Mapa.AgregarNodo(303, "Cartago", "direcion");
+        //Mapa.AgregarNodo(304, "Siquirres", "direcion");
+        //Mapa.AgregarNodo(101, "Orotina", "direcion");
+        //Mapa.AgregarNodo(102, "Parrita", "direcion");
+        //Mapa.AgregarNodo(103, "Gguna", "direcion");
+       // Mapa.AgregarNodo(307, "puebla", "direcion");
+       //Mapa.AgregarNodo(308, "hola", "direcion");
+        //Mapa.RelacionarNodo(301, 302, 10);
+        //Mapa.RelacionarNodo(301, 303, 10);
+        //Mapa.RelacionarNodo(301, 304, 10);
+        //Mapa.RelacionarNodo(301, 102, 40);
+        //Mapa.RelacionarNodo(303, 302, 10);
+        //Mapa.RelacionarNodo(303, 301, 11);
+        //Mapa.RelacionarNodo(303, 307, 50);
+        //Mapa.RelacionarNodo(304, 307, 10);
+       // Mapa.RelacionarNodo(307, 308, 20);
         
         //Mapa.RelacionarNodo(1, 303, 20);
         //Mapa.RelacionarNodo(1, 308, 20);
-        Mapa.RelacionarNodo(1, 303, 10);
+        //Mapa.RelacionarNodo(1, 303, 10);
         //g.Imprimir();
         //Mapa.RutaCorta(301,308);
         
