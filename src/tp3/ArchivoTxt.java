@@ -7,7 +7,7 @@ package tp3;
 
 import java.io.*;
 import java.math.BigInteger;
-import static tp3.Configuracion.DireccionTXT;
+//import static tp3.Configuracion.DireccionTXT;
 import tp3.Puntos;
 
 /**
