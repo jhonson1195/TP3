@@ -5,6 +5,7 @@
  */
 package tp3;
 
+import java.awt.Component;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,6 +13,7 @@ import java.util.GregorianCalendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.mail.MessagingException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,8 +29,9 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
     Calendar calendario;
     int [] Hora;
     int [] Hora2 =new int [2];
-    int SumaDuracion, numeroPedido;
+    int SumaDuracion, numeroPedido, RepartidoresEnRuta, CuentaRegresiva;
     boolean RutaGenerada=true;
+    
     
 
     /**
@@ -46,6 +49,10 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
         temporizador2 = new Thread(this);
         temporizador2.start();
         numeroPedido=0;
+        RepartidoresEnRuta=0;
+        CuentaRegresiva=Cantidades[2];
+        jTextArea1.setEditable(false);
+        jTextArea2.setEditable(false);
         
         /*Pedido o = new Pedido("ddd" ,"nobre",301,307, "correo");
         ColaPedidos.append(o);
@@ -81,6 +88,8 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -99,9 +108,9 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
-        jLabel3.setText("Repatidores:");
+        jLabel3.setText("Repatidores Dispo:");
 
-        jLabel4.setText("Pedidos:");
+        jLabel4.setText("Pedidos MAX:");
 
         jLabel5.setText("jLabel5");
 
@@ -119,6 +128,10 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
 
         jLabel10.setText("jLabel10");
 
+        jLabel11.setText("Cuenta Regreiva Pedidos:");
+
+        jLabel12.setText("jLabel12");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,39 +142,28 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(101, 101, 101))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(73, 73, 73)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel2)))
-                        .addGap(64, 64, 64))
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(jLabel7))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(83, 83, 83)
-                                .addComponent(jLabel7))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel10)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)))
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9))
+                        .addGap(61, 61, 61)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel5))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -180,7 +182,8 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                 .addGap(18, 18, 18)
                 .addComponent(jButton1)
                 .addContainerGap(143, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel2))
@@ -192,11 +195,15 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel6))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jLabel10))
-                .addGap(102, 102, 102)
+                .addGap(40, 40, 40)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,9 +215,29 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        RutaGenerada=true;
-        Cantidades[0]--;
-        
+        if(!RutaGenerada){
+            RutaGenerada=true;
+            Cantidades[0]--;
+            RepartidoresEnRuta++;
+            CuentaRegresiva=Cantidades[2];
+            jTextArea1.setText("");
+            jTextArea2.setText("Un repartidor acaba de salir");
+            for(int i=0;i<ColaPedidos.size();i++){
+                if(ColaPedidos.get(i).getEntregaBoolean()){
+                    EnviarCorreo Envio= new EnviarCorreo();
+                    try {
+                        Envio.Enviador(ColaPedidos.get(i).getcliente(), "Hora de entrega del pedido", "Entrega aproximada en:");
+                    } catch (MessagingException ex) {
+                        Logger.getLogger(PanelCentral.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    ColaPedidos.remove(i);
+                }
+            }
+        }else{
+            Component frame = null;
+            JOptionPane.showMessageDialog(frame,"No se a generado una ruta");
+            return;
+        }
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -219,6 +246,8 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -252,6 +281,7 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                R+="Entrega: "+P.getEntregar()+"\n";
                jTextArea2.setText(R);
                numeroPedido++;
+               CuentaRegresiva--;
                
                try {
                    CorreoR.enviarCorreo();
@@ -274,21 +304,29 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
         Thread ct = Thread.currentThread();
         while(ct == temporizador2) {
             jLabel5.setText(String.valueOf(Cantidades[0]));
-            jLabel6.setText(String.valueOf(Cantidades[0]));
-            if(segundos==0){
+            jLabel6.setText(String.valueOf(Cantidades[2]));
+            jLabel10.setText(String.valueOf(RepartidoresEnRuta));
+            jLabel12.setText(String.valueOf(CuentaRegresiva));
+            if(segundos==0 && RutaGenerada){
                 segundos=59;
                 minutos--;
             }
             jLabel2.setText(minutos+":"+segundos);
             
             if(Cantidades[0]!=0){
-                segundos--;
+                
+                if(RutaGenerada){
+                    segundos--;
+                }
+                
                 if((segundos==0 & 0==minutos) | Cantidades[2]==ColaPedidos.size()){
                     if(RutaGenerada){
                        generarRuta(); 
                     }
                     segundos=59;
                     minutos=Cantidades[1]-1;
+                    
+                    
                 }
             }
             try {
@@ -301,6 +339,7 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
         if(ColaPedidos.isEmpty()){
             return;
         }
+        System.out.println(ColaPedidos.size());
         Hora2=hora();
         int punto_actual=1;
         int [] Ruta;
