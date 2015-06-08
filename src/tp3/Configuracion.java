@@ -6,6 +6,10 @@
 package tp3;
 
 import java.awt.Component;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -144,8 +148,10 @@ public class Configuracion extends javax.swing.JFrame {
         buscador.setDialogTitle("Seleccione el mapa");
         if (buscador.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
             DireccionTXT= buscador.getSelectedFile().toString();
+            
             System.out.print(DireccionTXT);
         }
+       
             
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -166,6 +172,7 @@ public class Configuracion extends javax.swing.JFrame {
         }
         if(DireccionTXT==null){
             JOptionPane.showMessageDialog(frame,"Por favor ingrese un mapa");
+            return;
         }
         
         CargarMapaGrafo();
@@ -193,12 +200,15 @@ public class Configuracion extends javax.swing.JFrame {
         Mapa.RelacionarNodo(301, 303, 10);
         Mapa.RelacionarNodo(301, 304, 10);
         Mapa.RelacionarNodo(301, 102, 40);
-        Mapa.RelacionarNodo(303, 302, 1);
+        Mapa.RelacionarNodo(303, 302, 10);
         Mapa.RelacionarNodo(303, 301, 11);
         Mapa.RelacionarNodo(303, 307, 50);
         Mapa.RelacionarNodo(304, 307, 10);
         Mapa.RelacionarNodo(307, 308, 20);
-        Mapa.RelacionarNodo(1, 303, 20);
+        
+        //Mapa.RelacionarNodo(1, 303, 20);
+        //Mapa.RelacionarNodo(1, 308, 20);
+        Mapa.RelacionarNodo(1, 303, 10);
         //g.Imprimir();
         //Mapa.RutaCorta(301,308);
         

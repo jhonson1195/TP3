@@ -6,38 +6,71 @@
 package tp3;
 
 import java.io.*;
+import java.math.BigInteger;
+import static tp3.Configuracion.DireccionTXT;
+import tp3.Puntos;
 
 /**
  *
  * @author carlosr
  */
 public class ArchivoTxt {
-    File archivo = null;
-      FileReader fr = null;
-      BufferedReader br = null;
-      BufferedReader tr = null;
-      FileReader fr1 = null;
-      String puntos [][];
-      int Mapa [][];
-      int cont1=0;
-      static String Direccion = "C:\\archivo.txt";
+      File archivo;
+      FileReader fr;
+      BufferedReader br;
+      BufferedReader br1;
+      FileReader fr1;
+      BufferedReader br2;
+      FileReader fr2;
+      BufferedReader br3;
+      FileReader fr3;
+      BufferedReader br4;
+      FileReader fr4;
+      String DireccionTX = "/home/carlos/Escritorio/Archivo.txt";
+      static Stacks <Puntos> puntos = new Stacks();
+      static Stacks <Mapas> mapas = new Stacks();
+      public void ArchivoTxt(){
+          archivo = null;
+          fr = null;
+          br = null;
+          br1 = null;
+          fr1 = null;
+          br2 = null;
+          fr2 = null;
+          br3 = null;
+          fr3 = null;
+          br4 = null;
+          fr4 = null;
+          DireccionTX = "/home/carlos/Escritorio/Archivo.txt";
+          
+          
+          
+      } 
       
       public  void abrirArchivo(String Direccion) throws FileNotFoundException{
-         archivo = new File (Direccion);
+         
+         archivo = new File (DireccionTX);
          fr = new FileReader (archivo);
          br = new BufferedReader(fr);
          fr1 = new FileReader (archivo);
-         tr = new BufferedReader(fr1);
+         br1 = new BufferedReader(fr1);
+         fr2 = new FileReader (archivo);
+         br2 = new BufferedReader(fr2);
+         fr3 = new FileReader (archivo);
+         br3 = new BufferedReader(fr3);
+         fr4 = new FileReader (archivo);
+         br4 = new BufferedReader(fr4);
          System.out.println("Se abrio el archivo");
       }
       
       // Retorna el tamaño del grafo
       public int retornarTam() throws FileNotFoundException, IOException{
-          abrirArchivo(Direccion);
+          abrirArchivo(DireccionTX);
           String tam1="";
           
           int tam=0;
-         while((tam1=br.readLine())!=null&&(tam1=br.readLine())!="MAPA"){
+          String comparacion ="MAPA";
+         while((tam1=br.readLine()).compareTo(comparacion)!=0){
              tam++;
             
          }
@@ -47,4 +80,160 @@ public class ArchivoTxt {
               System.out.println(tam);
               return tam;
       }
+      
+      public int retornarTamMapas() throws FileNotFoundException, IOException{
+          abrirArchivo(DireccionTX);
+          String tam3="";
+          
+          int tam=0;
+          String comparacion ="FINAL";
+         //while((tam3=br3.readLine()).compareTo(comparacion)!=0){
+         while((tam3=br3.readLine())!=null){
+             tam++;
+            
+         }
+             
+
+           
+              System.out.println(tam);
+              return tam;
+      }
+      
+      public Stacks puntosgrafo() throws FileNotFoundException, IOException{
+          
+          abrirArchivo(DireccionTX);
+          String linea="";
+          String arreglo [];
+          
+          int lineas=0;
+          int maximo=retornarTam();
+           while(lineas<=maximo){
+              lineas++;
+              if((linea=br2.readLine()).equals("PUNTOS")){
+                  
+                  System.out.println("leyo la linea de puntos");
+              }
+              else{
+                  arreglo=linea.split(" ");
+                  //Integer nombres= Integer.parseInt(arreglo[0]);
+                  //Nombre deberia ser tipo Integer
+                  Puntos objecto = new Puntos();
+                  objecto.nombre=arreglo[0];
+                  objecto.ciudad=arreglo[1];
+                  objecto.direccion = arreglo[2];
+                  for(int i=3;i<arreglo.length;i++){
+                      String direccion= arreglo[i];
+                      objecto.direccion= objecto.direccion + direccion;
+                  }
+                  //System.out.println(" Nombre " + objecto.nombre + " Ciudad " + objecto.ciudad + " dirección " + objecto.direccion  );
+                  puntos.push(objecto);
+                  //System.out.println("Se agrego el elemento");
+                  
+              }
+              
+          }
+          
+          
+        
+        return puntos;
+          
+      }
+      
+      public Stacks mapaGrafo() throws FileNotFoundException, IOException{
+          abrirArchivo(DireccionTX);
+          String linea="";
+          String arreglo [];
+          int lineas = retornarTamMapas()-retornarTam();
+          int cont=-1;
+          System.out.println(" linea en la que empieza " + lineas);
+          int maximo = retornarTamMapas();
+          while((linea=br4.readLine())!=null){
+              cont++;
+              if(cont>=lineas){
+                  String parentesis=")";
+              
+                  linea=EliminaCaracteres(linea,parentesis);
+                  linea=linea.replace('(',' ');
+                  arreglo=linea.split(" ");
+                  //System.out.println(" arreglo0 " + arreglo[0]+" arreglo1 " + arreglo[1]+ " arreglo2 " + arreglo[2]);
+                  int corte=(arreglo.length-1);
+                  int count=0;
+                  while (count<corte){
+                      Mapas objeto = new Mapas();
+                      objeto.origen=arreglo[0];
+                      objeto.destino=arreglo[count+1];
+                      objeto.tiempo=arreglo[count+2];
+                      count= count+2;
+                      mapas.push(objeto);  
+                  }
+              
+              }
+              
+              
+              
+              
+          }
+          return mapas;
+          
+          
+          
+      }
+      
+      public void RecorrerPilaPuntos() throws IOException{
+          int maximo = retornarTam();
+          
+          for(int i=0;i<maximo;i++){
+              
+              Puntos referencia = puntos.pop();
+          
+          System.out.println(" Nombre " + referencia.nombre + " Ciudad " +  referencia.ciudad+ " Direccion " + referencia.direccion);
+              
+          }
+      }
+      
+           public void RecorrerPilaMapas() throws IOException{
+          int maximo = retornarTamMapas()-retornarTam();
+          
+          while(mapas.top()!=null){
+              
+              Mapas referencia = mapas.pop();
+          
+          System.out.println(" Origen "+ referencia.origen +" destino " + referencia.destino+ " tiempo " +referencia.tiempo);
+              
+          }
+      }
+      
+      public String EliminaCaracteres(String s_cadena, String s_caracteres){
+          String nueva_cadena = "";
+          Character caracter = null;
+          boolean valido = true;
+ 
+          /* Va recorriendo la cadena s_cadena y copia a la cadena que va a regresar,
+          sólo los caracteres que no estén en la cadena s_caracteres */
+          for (int i=0; i<s_cadena.length(); i++){
+                valido = true;
+                for (int j=0; j<s_caracteres.length(); j++){
+                    caracter = s_caracteres.charAt(j);
+                    if (s_cadena.charAt(i) == caracter){
+                        valido = false;
+                        break;
+                    }
+                }
+                if (valido)
+                    nueva_cadena += s_cadena.charAt(i);
+                }
+          
+            
+            return nueva_cadena;
+        }
+      
+      public static void main(String [] arg) throws IOException{
+        ArchivoTxt pruebas = new ArchivoTxt();
+        pruebas.puntosgrafo();
+        pruebas.RecorrerPilaPuntos();
+        pruebas.mapaGrafo();
+        pruebas.RecorrerPilaMapas();
+       
+      }
+      
 }
