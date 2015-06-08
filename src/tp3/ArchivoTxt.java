@@ -22,9 +22,13 @@ public class ArchivoTxt {
       FileReader fr1;
       BufferedReader br2;
       FileReader fr2;
+      BufferedReader br3;
+      FileReader fr3;
+      BufferedReader br4;
+      FileReader fr4;
       String DireccionTX = "/home/carlos/Escritorio/Archivo.txt";
       static Stacks <Puntos> puntos = new Stacks();
-      
+      static Stacks <Mapas> mapas = new Stacks();
       public void ArchivoTxt(){
           archivo = null;
           fr = null;
@@ -33,6 +37,10 @@ public class ArchivoTxt {
           fr1 = null;
           br2 = null;
           fr2 = null;
+          br3 = null;
+          fr3 = null;
+          br4 = null;
+          fr4 = null;
           DireccionTX = "/home/carlos/Escritorio/Archivo.txt";
           
           
@@ -48,6 +56,10 @@ public class ArchivoTxt {
          br1 = new BufferedReader(fr1);
          fr2 = new FileReader (archivo);
          br2 = new BufferedReader(fr2);
+         fr3 = new FileReader (archivo);
+         br3 = new BufferedReader(fr3);
+         fr4 = new FileReader (archivo);
+         br4 = new BufferedReader(fr4);
          System.out.println("Se abrio el archivo");
       }
       
@@ -65,6 +77,24 @@ public class ArchivoTxt {
              tam=tam-1; 
 
             // tamaño del grafo
+              System.out.println(tam);
+              return tam;
+      }
+      
+      public int retornarTamMapas() throws FileNotFoundException, IOException{
+          abrirArchivo(DireccionTX);
+          String tam3="";
+          
+          int tam=0;
+          String comparacion ="FINAL";
+         //while((tam3=br3.readLine()).compareTo(comparacion)!=0){
+         while((tam3=br3.readLine())!=null){
+             tam++;
+            
+         }
+             
+
+           
               System.out.println(tam);
               return tam;
       }
@@ -109,22 +139,100 @@ public class ArchivoTxt {
           
       }
       
-      public void RecorrerCola() throws IOException{
+      public Stacks mapaGrafo() throws FileNotFoundException, IOException{
+          abrirArchivo(DireccionTX);
+          String linea="";
+          String arreglo [];
+          int lineas = retornarTamMapas()-retornarTam();
+          int cont=-1;
+          System.out.println(" linea en la que empieza " + lineas);
+          int maximo = retornarTamMapas();
+          while((linea=br4.readLine())!=null){
+              cont++;
+              if(cont>=lineas){
+                  String parentesis=")";
+              
+                  linea=EliminaCaracteres(linea,parentesis);
+                  linea=linea.replace('(',' ');
+                  arreglo=linea.split(" ");
+                  //System.out.println(" arreglo0 " + arreglo[0]+" arreglo1 " + arreglo[1]+ " arreglo2 " + arreglo[2]);
+                  int corte=(arreglo.length-1);
+                  int count=0;
+                  while (count<corte){
+                      Mapas objeto = new Mapas();
+                      objeto.origen=arreglo[0];
+                      objeto.destino=arreglo[count+1];
+                      objeto.tiempo=arreglo[count+2];
+                      count= count+2;
+                      mapas.push(objeto);  
+                  }
+              
+              }
+              
+              
+              
+              
+          }
+          return mapas;
+          
+          
+          
+      }
+      
+      public void RecorrerPilaPuntos() throws IOException{
           int maximo = retornarTam();
           
           for(int i=0;i<maximo;i++){
               
               Puntos referencia = puntos.pop();
           
-          System.out.println(referencia.nombre + referencia.ciudad+referencia.direccion);
+          System.out.println(" Nombre " + referencia.nombre + " Ciudad " +  referencia.ciudad+ " Direccion " + referencia.direccion);
               
           }
       }
       
+           public void RecorrerPilaMapas() throws IOException{
+          int maximo = retornarTamMapas()-retornarTam();
+          
+          while(mapas.top()!=null){
+              
+              Mapas referencia = mapas.pop();
+          
+          System.out.println(" Origen "+ referencia.origen +" destino " + referencia.destino+ " tiempo " +referencia.tiempo);
+              
+          }
+      }
+      
+      public String EliminaCaracteres(String s_cadena, String s_caracteres){
+          String nueva_cadena = "";
+          Character caracter = null;
+          boolean valido = true;
+ 
+          /* Va recorriendo la cadena s_cadena y copia a la cadena que va a regresar,
+          sólo los caracteres que no estén en la cadena s_caracteres */
+          for (int i=0; i<s_cadena.length(); i++){
+                valido = true;
+                for (int j=0; j<s_caracteres.length(); j++){
+                    caracter = s_caracteres.charAt(j);
+                    if (s_cadena.charAt(i) == caracter){
+                        valido = false;
+                        break;
+                    }
+                }
+                if (valido)
+                    nueva_cadena += s_cadena.charAt(i);
+                }
+          
+            
+            return nueva_cadena;
+        }
+      
       public static void main(String [] arg) throws IOException{
         ArchivoTxt pruebas = new ArchivoTxt();
         pruebas.puntosgrafo();
-        pruebas.RecorrerCola();
+        pruebas.RecorrerPilaPuntos();
+        pruebas.mapaGrafo();
+        pruebas.RecorrerPilaMapas();
        
       }
       
