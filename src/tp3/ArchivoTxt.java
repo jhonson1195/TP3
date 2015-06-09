@@ -242,14 +242,4 @@ public class ArchivoTxt {
           
           
       }
-      
-      public static void main(String [] arg) throws IOException{
-        ArchivoTxt pruebas = new ArchivoTxt();
-        pruebas.puntosgrafo();
-        pruebas.RecorrerPilaPuntos();
-        pruebas.mapaGrafo();
-        pruebas.RecorrerPilaMapas();
-       
-      }
-      
 }

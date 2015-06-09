@@ -6,7 +6,6 @@
 package tp3;
 
 import java.awt.Component;
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -212,37 +211,7 @@ public class Configuracion extends javax.swing.JFrame {
             int valor3 = Integer.parseInt(referencia.destino);
             int valor4 =Integer.parseInt(referencia.tiempo);
             Mapa.RelacionarNodo(valor2, valor3, valor4);
-            
-                
-        }
-        
-        
-        //Mapa.AgregarNodo(1, "Sanjose", "direcion");
-        //Mapa.AgregarNodo(301, "Heredia", "direcion");
-        //Mapa.AgregarNodo(302, "Limon", "direcion");
-        //Mapa.AgregarNodo(303, "Cartago", "direcion");
-        //Mapa.AgregarNodo(304, "Siquirres", "direcion");
-        //Mapa.AgregarNodo(101, "Orotina", "direcion");
-        //Mapa.AgregarNodo(102, "Parrita", "direcion");
-        //Mapa.AgregarNodo(103, "Gguna", "direcion");
-       // Mapa.AgregarNodo(307, "puebla", "direcion");
-       //Mapa.AgregarNodo(308, "hola", "direcion");
-        //Mapa.RelacionarNodo(301, 302, 10);
-        //Mapa.RelacionarNodo(301, 303, 10);
-        //Mapa.RelacionarNodo(301, 304, 10);
-        //Mapa.RelacionarNodo(301, 102, 40);
-        //Mapa.RelacionarNodo(303, 302, 10);
-        //Mapa.RelacionarNodo(303, 301, 11);
-        //Mapa.RelacionarNodo(303, 307, 50);
-        //Mapa.RelacionarNodo(304, 307, 10);
-       // Mapa.RelacionarNodo(307, 308, 20);
-        
-        //Mapa.RelacionarNodo(1, 303, 20);
-        //Mapa.RelacionarNodo(1, 308, 20);
-        //Mapa.RelacionarNodo(1, 303, 10);
-        //g.Imprimir();
-        //Mapa.RutaCorta(301,308);
-        
+        }  
     }
     
 
