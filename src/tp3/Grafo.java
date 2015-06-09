@@ -78,7 +78,7 @@ public class Grafo {
     
     public int BuscarIndice(int punto){
         int j;
-        for(j=0;j<tamañoact;j++){
+        for(j=0;j<TamañoMax;j++){
             if(Lista[j].getPunto()==punto){break;}
         }
         return j;
