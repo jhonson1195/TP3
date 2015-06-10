@@ -1,4 +1,3 @@
-
 package tp3;
 
 import java.io.IOException;
@@ -11,6 +10,13 @@ import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.Store;
 
+
+/**
+ * 
+ *  Esta es la clase para recibir correos
+ * 
+ *  Se utilizan las librerias externas correspondientes a JavaMail
+ */
 public class RecibirMail{
     
     EnviarCorreo Envia;
@@ -22,14 +28,18 @@ public class RecibirMail{
         Envia = new EnviarCorreo();
         Bandera=false;
     }
-   
+    
+    // Retorna el arreglo con los Datos del correo
     public String [] getDatos(){
         return Datos;
     }
     
+    // Retorna el estado, osea se hay nuevos correos
     public boolean getEstado(){
         return Bandera;
     }
+    
+    // Retorna el Correo del cliente
     public String getCorreoCliente(){
         return cliente;
     }
@@ -123,7 +133,7 @@ public class RecibirMail{
         return noHTMLString;
     }
     
-    //Se utiliza pra nada mas extraer la informacion del correo
+    //Se utiliza para nada mas extraer la informacion del correo
     private String accederCorreo(String htmlString){
         boolean estado=false;
         String Correo="";

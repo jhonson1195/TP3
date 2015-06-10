@@ -1,15 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tp3;
 
-
-
 /**
- *Clase de tipo pila
- * @author jhonson
+ * Clase de tipo pila
  */
 public class Stacks <T>{
     //Atributos
@@ -51,7 +43,7 @@ public class Stacks <T>{
  
     /**
      * Devuelve el top de la pila
-     * @return elmento 
+     * @return elemento 
      */
     public T top() {
         if (top == null) {
@@ -105,6 +97,7 @@ public class Stacks <T>{
         }
         return result;
     }
+    
     /**
      * Clase que almacena los elementos
      */
@@ -128,18 +121,22 @@ public class Stacks <T>{
             this.next = next;
         }
 
+        // Se retorna el elemento del nodo
         public T getElement(){
             return this.element;
         }
 
+        // Se ingresa el elemento del noco
         public void setElement(T element){
             this.element = element;
         }
 
+        // Se retorna el nodo siguiente
         public Node<T> getNext(){
             return this.next;
         }
 
+        // Se ingresa el nodo siguiente
         public void setNext(Node<T> next){
             this.next = next;
         }

@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tp3;
 
-
-
 /**
- *
- * @author carlos
+ * 
+ * Clase objecto de los puntos con
+ * su informacion correspondiente
  */
 public class Puntos {
     String nombre;

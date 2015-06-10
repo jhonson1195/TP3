@@ -5,13 +5,11 @@ import javax.mail.*;
 import javax.mail.internet.InternetAddress; 
 import javax.mail.internet.MimeMessage;
 
-/*
+/**
 *
-* Esta clase es la que enviar correos
-* Se utilizo como prueba para enviar SMS desde SMSglobal.com
-*
+* Esta es la clase para enviar correos
+* Se utilizan las librerias externas correspondientes a JavaMail
 */
-
 public class EnviarCorreo {
     final String Cuenta; 
     final String Contraseña; 

@@ -1,13 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tp3;
 
 /**
  *
- * @author jhonson
+ * Aqui se crea la estructura de grafos y se hace la manipulacion de la misma
+ * 
+ * Se utilizan las clases:
+ * * 
  */
 public class Grafo {
     private Nodo [] Lista;
@@ -16,6 +14,7 @@ public class Grafo {
     private int tamañoact;
     NodoRuta n1;
     
+    //Se ingresa o se cambia el tamaño maximo del grafo
     public void setTamañoMaximo(int TamañoMax){
         this.TamañoMax=TamañoMax;
         Lista=new Nodo [TamañoMax];
@@ -24,24 +23,28 @@ public class Grafo {
         
     }
     
-    /**
-     *
-     * @return
-     */
+    // Retorna el tamaño maximo
     public int getTamañoMax(){
         return TamañoMax;
     }
+    
+    // Retorna la lista de Nodos(Puntos)
     public Nodo [] getLista(){
         return Lista;
     }
+    
+    // Retorna la matriz de adyacencia
     public Integer [][] getAyacencia(){
         return Matriz;
     }
+    
+    // Retorna la duracion entre punto y punto
     public int getDuracionP_P(int Punto1, int Punto2){
         return Matriz[BuscarIndice(Punto1)][BuscarIndice(Punto2)];
         
     }
     
+    // Se agrega un Punto a la lista
     public void AgregarNodo(int Punto, String Ciudad,String Dirrecion){
         if(tamañoact==TamañoMax){
             System.out.println("Lista llena");
@@ -51,12 +54,8 @@ public class Grafo {
         Lista[tamañoact]= Nodo;
         tamañoact++;  
     }
-    /**
-     * Punto uno nodo principal para relacionarlo con el punto2, arista es la distancia
-     * @param punto
-     * @param punto2
-     * @param Arista 
-     */
+    
+    // Se hacen las relaciones(conexiones) entre un punto y otro
     public void RelacionarNodo(int punto, int punto2, int Arista){
         Matriz[BuscarIndice(punto)][BuscarIndice(punto2)]=Arista;
     } 
@@ -76,6 +75,7 @@ public class Grafo {
         System.out.print(r);  
     }
     
+    //Busca el indice o posicion en la que se encuentra un punto dentro de la lista
     public int BuscarIndice(int punto){
         int j;
         for(j=0;j<TamañoMax;j++){
@@ -84,6 +84,7 @@ public class Grafo {
         return j;
     }
     
+    // Retorna la duracion de una ruta
     public int DuracionRuta(int [] Ruta){
         int suma=0;
         for(int i=0;i<Ruta.length-1;i++){
@@ -92,6 +93,13 @@ public class Grafo {
         return suma;
     }
     
+    /**
+     * 
+     * Va a buscar cual es la ruta mas corta para llegar de un punto
+     * a otro y va a retornar una lista con los ID´s de dicha ruta
+     * 
+     * Se utiliza el metodo de Dijktra para buscar la ruta mas corta
+     */
     public int [] RutaCorta(int Inicial, int Final){
         NodoRuta [] Dijktra= new NodoRuta[TamañoMax];
         int j=BuscarIndice(Inicial);
@@ -124,8 +132,6 @@ public class Grafo {
                                 Dijktra[indice].setRutaPunto_Distancia(Lista[j].getPunto(), suma);
                             }
                         }   
-                            
-                        
                     }
                 }
             }
@@ -136,7 +142,6 @@ public class Grafo {
                 if(!n.getRutaMenor()){
                     if(n.Distancia()!=null){
                         n1=n;
-                        //System.out.println(n.Distancia());
                         break;
                     }
                 }
@@ -153,14 +158,14 @@ public class Grafo {
                 }
             }
             
-            //System.out.println(j);
             j=BuscarIndice(n1.getPunto());
             Distancia=Dijktra[j].Distancia();
             anterior=Dijktra[j].getRutaPunto();
         }
         for(NodoRuta n3:Dijktra){
-            //System.out.println(n3.getPunto()+" "+n3.getRutaPunto()+" "+n3.Distancia());
+            
         }
+        
         j=BuscarIndice(Final);
         DoublyLinkedList<Integer> Camino = new DoublyLinkedList<>();
         Camino.append(Final);
@@ -179,7 +184,7 @@ public class Grafo {
     }
         
     
-    
+    // Clase que va ir creando una ruta entre un punto y otro
     class NodoRuta{
         private boolean RutaMenor;
         private Integer Punto=null;
@@ -191,28 +196,39 @@ public class Grafo {
            RutaMenor=false;
         }
         
+        // Retorna la ruta mas rapida
         public boolean getRutaMenor(){
             return RutaMenor;
         }
+        
+        // Se avala que la ruta es la mas corta
         public void setRutaMenor(){
             RutaMenor=true;
         }
+        
+        // Retorna el ID de un punto
         public Integer getPunto(){
             return Punto;
         }
+        
+        // Retorna el ID de la ruta
         public Integer getRutaPunto(){
             return RutaPunto;
         }
+        
+        // Retorna la distacia entre un punto y otro
         public Integer Distancia(){
             return Distancia;
         }
+        
+        // Se ingresan la distancia entre un punto y otro; ademas de la ruta.
         public void setRutaPunto_Distancia(Integer RutaPunto,Integer Distancia){
             this.RutaPunto=RutaPunto;
             this.Distancia=Distancia;
         }
-        
     }
     
+    // Clase Nodo, la cual se va a encargar de ir guardando la informacion de un punto
     class Nodo{
         private int Punto;
         private String Direccion, Ciudad;
@@ -222,14 +238,18 @@ public class Grafo {
             this.Direccion=Dirrecion;
             this.Ciudad=Ciudad;
         }
+        
+        // Retorna la ciudad que corresponde al punto
         public  String getCiudad(){
             return Ciudad;
         }
         
+        // Retorna el ID del punto
         public  int getPunto(){
             return Punto;
         }
         
+        // Retorna Direccion del punto
         public String getDireccion(){
             return Direccion;
         }

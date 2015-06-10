@@ -1,26 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tp3;
 
 import java.util.Arrays;
 
 /**
  *
- * @author jhonson
+ * Clase Principal, en la cual se inicia ejecutando el proyecto
+ * Hace uso de la Clase JFrame Configuracion
+ * 
  */
 public class TP3 {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
         Configuracion conf = new Configuracion();
-        conf.setVisible(true);
-        
-    }
-    
+        conf.setVisible(true);       
+    } 
 }

@@ -6,8 +6,9 @@
 package tp3;
 
 /**
- *
- * @author carlos
+ * 
+ * Clase objecto de los mapas con 
+ * su informacion correspondiente
  */
 public class Mapas {
     String origen;

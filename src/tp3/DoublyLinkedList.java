@@ -11,6 +11,7 @@ public class DoublyLinkedList <T>{
     private Node<T> head, current, tail;
     private int position;
     private int size;
+    
     /**
      * contructor que inicializa las variables
      */

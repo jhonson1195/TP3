@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tp3;
 
 import java.awt.Color;
@@ -13,7 +8,12 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author jhonson
+ * Clase para graficar el grafo
+ * 
+ * Se utilizan librerias externas para realizar la representacion
+ * 
+ * Se Utiliza la clase:
+ * * Grafos
  */
 public class GraficarGrafo extends JPanel{
     Grafo Mapa;
@@ -22,6 +22,12 @@ public class GraficarGrafo extends JPanel{
         this.Mapa=Mapa;
     }
     
+    /**
+     * 
+     * Se grafica el grafo de acuerdo al grafo recibido 
+     * y a las coordenadas de los puntos, asi como tambien 
+     * se hacen las relaciones entre puntos
+     */
     protected void paintCompo(Graphics g){
         Graphics2D gr= (Graphics2D)g;
         gr.setColor(Color.red);
@@ -54,6 +60,7 @@ public class GraficarGrafo extends JPanel{
         paintCompo(g);
     }
     
+    // Utiliza esta clase NodoXY, para guardar las coordenas dentro de la ventana
     class NodoXY{
         int x, y;
         
