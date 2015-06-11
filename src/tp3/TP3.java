@@ -1,6 +1,5 @@
 package tp3;
 
-import java.util.Arrays;
 
 /**
  *

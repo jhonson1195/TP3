@@ -34,7 +34,7 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
     int [] Hora2 =new int [2];
     int SumaDuracion, numeroPedido, RepartidoresEnRuta, CuentaRegresiva;
     boolean RutaGenerada=true;
-    
+    int ultimaEntrega;
     
 
     /**
@@ -314,7 +314,7 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
     }
     
     /**
-     * Cada 15 segundos se comprueba si hay un correo nuevo
+     * Cada 5 segundos se comprueba si hay un correo nuevo
      */
     @Override
     public void run() {
@@ -389,7 +389,7 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                     
                     
                 }
-            }
+            }else{jTextArea2.setText("No hay repartidores disponibles");}
             try {
                 Thread.sleep(1000);
             }catch(InterruptedException e) {}
@@ -404,7 +404,7 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
         if(ColaPedidos.isEmpty()){
             return;
         }
-        System.out.println(ColaPedidos.size());
+        
         Hora2=hora();
         int punto_actual=1;
         int [] Ruta;
@@ -449,7 +449,7 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
                    }
                    
                    if(!Bandera && count!=0 && count!= Ruta.length-1){
-                       Resultado+="Puto: "+ P+" LLegada: "+Hora2[0]+":"+Hora2[1]+ " Salida: "+Hora2[0]+":"+Hora2[1]+"\n";
+                       Resultado+="Punto: "+ P+" LLegada: "+Hora2[0]+":"+Hora2[1]+ " Salida: "+Hora2[0]+":"+Hora2[1]+"\n";
                    }
                    if(count!=Ruta.length-1){
                     sumahora(Mapa.getDuracionP_P(Ruta[count], Ruta[count+1]));
@@ -466,6 +466,7 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
             }
                 
                 if(!ColaPedidos.get(i).getEntregaBoolean()){
+                    ultimaEntrega=ColaPedidos.get(i).getEntregar();
                     ColaPedidos.get(i).setEntregaBoolean();
                     Ruta=Mapa.RutaCorta(ColaPedidos.get(i).getRecolectar(),ColaPedidos.get(i).getEntregar());
                     boolean Bandera=false;
@@ -514,7 +515,19 @@ public class PanelCentral extends javax.swing.JFrame implements Runnable {
            punto_actual=ColaPedidos.get(i).getEntregar();
            
         } 
-        Resultado+="Tiempo total de la ruta: "+ SumaDuracion +"minutos";
+        Ruta=Mapa.RutaCorta(ultimaEntrega, 1);
+        for(int i =0; i<Ruta.length-1;i++){
+            
+            if(Ruta[i+1]==1){
+                sumahora(Mapa.getDuracionP_P(Ruta[i], Ruta[i+1]));
+                Resultado+="Punto: "+ Ruta[i+1]+" LLegada: "+Hora2[0]+":"+Hora2[1]+"\n";
+                break;
+                
+            }
+            sumahora(Mapa.getDuracionP_P(Ruta[i], Ruta[i+1]));
+            Resultado+="Punto: "+ Ruta[i+1]+" LLegada: "+Hora2[0]+":"+Hora2[1]+ " Salida: "+Hora2[0]+":"+Hora2[1]+"\n";
+        }
+        Resultado+="Tiempo total de la ruta: "+ SumaDuracion +" minutos"+"\n";
         jTextArea1.setText(Resultado);
     }
     
